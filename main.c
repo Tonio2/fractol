@@ -6,7 +6,7 @@
 /*   By: alabalet <alabalet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 14:42:59 by alabalet          #+#    #+#             */
-/*   Updated: 2021/06/08 16:33:55 by alabalet         ###   ########.fr       */
+/*   Updated: 2021/06/08 16:47:34 by alabalet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,30 @@ int	ft_update(t_data *v)
 	return (0);
 }
 
+int	ft_exit(int keycode, t_data *v)
+{
+	keycode++;
+	v++;
+	exit(0);
+	return (0);
+}
+
+int	press_hook(int keycode, t_data *v)
+{
+	v++;
+	if (keycode == 53)
+		exit(0);
+	return (0);
+}
+
 int	main(void)
 {
 	t_data	v;
 
 	ft_init(&v);
 	mlx_loop_hook(v.mlx, ft_update, &v);
+	mlx_hook(v.win, 2, 0L, press_hook, &v);
+	mlx_hook(v.win, 17, 0L, ft_exit, &v);
 	mlx_loop(v.mlx);
 	return (0);
 }
